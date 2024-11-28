@@ -1,6 +1,6 @@
-const num1 = 58;
-const num2 = 10;
+import server from "./server";
+import { PORT } from "./config/envs";
 
-const sumar = (a: number, b: number) => a + b;
-
-console.log(sumar(num1, num2));
+server.listen(PORT, () => {
+  console.log(`Servidor encendido en el ${PORT}`);
+});
