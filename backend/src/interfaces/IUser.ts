@@ -1,8 +1,15 @@
+import ILocation from "../interfaces/ILocation";
+import ICredential from './ICredential';
+
 interface IUser {
   id: number;
+  photo: File;
   name: string;
   email: string;
-  active: boolean;
+  birthdate: Date;
+  nDni: number;
+  location: ILocation[];
+  credentialsId: ICredential;
 }
 
 export default IUser;
