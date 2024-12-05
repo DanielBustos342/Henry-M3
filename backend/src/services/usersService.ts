@@ -113,8 +113,14 @@ export const getUserByIdService = async (id: number): Promise<IUser | undefined>
   return user;
 }
 
-export const createUserService = async (user: IUser): Promise<IUser> => {
-  const newUser = {...user, id:users.length +1}
-  users.push(newUser)
-  return newUser
+export const createUserService = (user: IUser): IUser | undefined => {
+    const newUser = {...user, id:users.length +1}
+    users.push(newUser)
+    return newUser
+}
+
+export const deleteUserService = (id:number): IUser => {
+  const userIndex = users.findIndex((user) => user.id === id);
+  const [deleteUser] = users.splice(userIndex, 1)
+  return deleteUser;
 }
