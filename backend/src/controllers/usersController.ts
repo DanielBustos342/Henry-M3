@@ -1,33 +1,45 @@
 import { Request, Response } from "express";
-import {
-  createUserService,
-  getUsersService,
-  deleteUserService,
-  getUserByIdService,
-} from "../services/usersService";
+import { getUsersService, getUserByIdService, createUserService } from "../services/usersService";
 import IUser from "../interfaces/IUser";
 
-export const createUser = async (req: Request, res: Response) => {
-  // vamos a tomar los datos del usuario  del body de la request
-  // camos a llamar a la funcion correspondiente del servicio de usuarios
-  // para la creacion del nuevo usuario
-  // id, name, email, birthdate, address
-  const { name, email, active } = req.body;
-  const newUser: IUser = await createUserService({ name, email, active });
-  res.status(201).json(newUser);
-};
-
+// controlador para ver los usuarios
 export const getUsers = async (req: Request, res: Response) => {
   const users: IUser[] = await getUsersService();
   res.status(200).json(users);
 };
 
-export const getUserById = async (req: Request, res: Response) => {
-  console.log("aqui va un id");
-};
+export const getUserById = async (req: Request, res: Response): Promise<void> => {
+  const id = parseInt(req.params.id, 10);
 
-export const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.body;
-  await deleteUserService(id);
-  res.status(200).json({ message: "Eliminado correctamente" });
-};
+  if (isNaN(id)) {
+    res.status(400).json({ message: "El ID proporcionado no es válido." });
+    return
+  }
+  const user: IUser | undefined = await getUserByIdService(id);
+
+    // Verificar si el usuario existe
+    if (!user) {
+      res.status(404).json({ message: "Usuario no encontrado." });
+      return
+    }
+
+    // Devolver el usuario encontrado
+    res.status(200).json(user);
+}
+
+export const createUser = async (req: Request, res: Response): Promise<void> => {
+  const {id, photo, name, email, birthdate, nDni, location,credentialsId}: IUser = req.body;
+
+  const newUser = await createUserService({
+    id,
+    photo,
+    name,
+    email,
+    birthdate: new Date(birthdate),
+    nDni,
+    location,
+    credentialsId,
+
+  })
+  res.status(200).json(newUser)
+}
