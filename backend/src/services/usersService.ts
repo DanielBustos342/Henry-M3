@@ -113,10 +113,14 @@ export const getUserByIdService = async (id: number): Promise<IUser | undefined>
   return user;
 }
 
-export const createUserService = (user: IUser): IUser | undefined => {
+export const registerService = (user: IUser): IUser | undefined => {
     const newUser = {...user, id:users.length +1}
     users.push(newUser)
     return newUser
+}
+
+export const loginService = () => {
+  console.log("El usuario esta registrado")
 }
 
 export const deleteUserService = (id:number): IUser => {
@@ -124,3 +128,4 @@ export const deleteUserService = (id:number): IUser => {
   const [deleteUser] = users.splice(userIndex, 1)
   return deleteUser;
 }
+

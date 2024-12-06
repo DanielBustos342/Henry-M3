@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getUsersService, getUserByIdService, createUserService, deleteUserService } from "../services/usersService";
+import { getUsersService, getUserByIdService, registerService, deleteUserService, loginService } from "../services/usersService";
 import IUser from "../interfaces/IUser";
 
 // controlador para ver los usuarios
@@ -29,10 +29,10 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
 }
 
 // controlador para crear un usuario
-export const createUser = async (req: Request, res: Response): Promise<void> => {
+export const register = async (req: Request, res: Response): Promise<void> => {
   const {id, photo, name, email, birthdate, nDni, location,credentialsId}: IUser = req.body;
     
-    const newUser = await createUserService({
+    const newUser = await registerService({
       id,
       photo,
       name,
@@ -45,6 +45,13 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     })
     res.status(200).json(newUser)
 }
+
+// controlador para el login
+export const login = async (req: Request, res: Response) => {
+  const login = loginService()
+  res.status(200).json(login)
+}
+
 
 // controlador para borrar un usuario
 export const deleteUser = (req: Request, res: Response): void => {
@@ -64,3 +71,4 @@ export const deleteUser = (req: Request, res: Response): void => {
 
   res.status(200).json({message: "Usuario eliminado exitosamente", deleteUser})
 }
+
