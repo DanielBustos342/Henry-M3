@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getAllturns, getTurnById, schedule, cancel } from "../controllers/appointmentsController";
+import { getTurnById, schedule, cancel, getAppointments } from "../controllers/appointmentsController";
 
 const appointmentsRouter: Router = Router()
 
 // GET /appointments => Obtener el listado de todos los turnos de todos los usuarios
-appointmentsRouter.get("/", getAllturns);
+appointmentsRouter.get("/", getAppointments);
 // GET /appointments => Obtener el detalle de un turno específico
 appointmentsRouter.get("/", getTurnById);
 // POST /appointments/schedule => Agendar un nuevo turno

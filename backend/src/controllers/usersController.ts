@@ -47,9 +47,20 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 }
 
 // controlador para el login
-export const login = async (req: Request, res: Response) => {
-  const login = loginService()
-  res.status(200).json(login)
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const {username, password} = req.body;
+  if(!username || !password){
+    res.status(400).json({message: " faltan datos"})
+    return
+  }
+
+  const user = loginService(username, password)
+
+  if(!user){
+    res.status(400).json({message: "credenciales incorrectas"})
+  }
+
+  res.status(200).json({message: "inicio de sesion exitoso", user})
 }
 
 

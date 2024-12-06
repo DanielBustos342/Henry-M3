@@ -119,8 +119,9 @@ export const registerService = (user: IUser): IUser | undefined => {
     return newUser
 }
 
-export const loginService = () => {
-  console.log("El usuario esta registrado")
+export const loginService = (username: string, password: string): IUser | null => {
+  const loginUser = users.find((user) => user.credentialsId.username === username && user.credentialsId.password === password)
+  return loginUser || null;
 }
 
 export const deleteUserService = (id:number): IUser => {

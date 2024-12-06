@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
+import { getAppointmentsService } from "../services/appointmentsService";
+import IAppointment from "../interfaces/IAppointment";
 
 // GET /turns => Obtener todos los turnos
-export const getAllturns = async (req: Request, res: Response) => {
-  res.send("vamos a obtener todos los turnos");
+export const getAppointments = async (req: Request, res: Response) => {
+  const appointments: IAppointment[] = await getAppointmentsService()
+  console.log(appointments)
+  res.status(200).json(appointments);
 };
 // GET /turns/:id => Obtener un turno por ID
 export const getTurnById = async (req: Request, res: Response) => {
