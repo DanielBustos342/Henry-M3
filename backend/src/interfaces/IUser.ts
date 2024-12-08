@@ -1,5 +1,5 @@
 import ILocation from "../interfaces/ILocation";
-import ICredential from './ICredential';
+import ICredential from "./ICredential";
 
 interface IUser {
   id: number;

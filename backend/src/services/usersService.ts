@@ -3,14 +3,12 @@ import IUser from "../interfaces/IUser";
 const users: IUser[] = [
   {
     id: 1,
-    photo: new File([], "user1.jpg"),
+    photo: "user1.jpg",
     name: "Sofía García",
     email: "sofia.garcia@example.com",
     birthdate: new Date("1990-05-12"),
     nDni: 12345678,
-    location: [
-      { domicilio: "Calle Falsa 123", address: "Madrid, España" },
-    ],
+    location: [{ domicilio: "Calle Falsa 123", address: "Madrid, España" }],
     credentialsId: {
       id: 1,
       username: "sofiagarcia",
@@ -23,14 +21,12 @@ const users: IUser[] = [
   },
   {
     id: 2,
-    photo: new File([], "user2.jpg"),
+    photo: "user2.jpg",
     name: "Juan Pérez",
     email: "juan.perez@example.com",
     birthdate: new Date("1985-08-23"),
     nDni: 23456789,
-    location: [
-      { domicilio: "Av. Siempre Viva 742", address: "Lima, Perú" },
-    ],
+    location: [{ domicilio: "Av. Siempre Viva 742", address: "Lima, Perú" }],
     credentialsId: {
       id: 2,
       username: "juanperez",
@@ -43,7 +39,7 @@ const users: IUser[] = [
   },
   {
     id: 3,
-    photo: new File([], "user3.jpg"),
+    photo: "user3.jpg",
     name: "Ana Torres",
     email: "ana.torres@example.com",
     birthdate: new Date("1992-11-04"),
@@ -63,7 +59,7 @@ const users: IUser[] = [
   },
   {
     id: 4,
-    photo: new File([], "user4.jpg"),
+    photo: "user4.jpg",
     name: "Carlos López",
     email: "carlos.lopez@example.com",
     birthdate: new Date("1988-03-15"),
@@ -83,14 +79,12 @@ const users: IUser[] = [
   },
   {
     id: 5,
-    photo: new File([], "user5.jpg"),
+    photo: "user5.jpg",
     name: "Elena Martínez",
     email: "elena.martinez@example.com",
     birthdate: new Date("1995-07-19"),
     nDni: 56789012,
-    location: [
-      { domicilio: "Via Roma 22", address: "Roma, Italia" },
-    ],
+    location: [{ domicilio: "Via Roma 22", address: "Roma, Italia" }],
     credentialsId: {
       id: 5,
       username: "elenamartinez",
@@ -103,30 +97,37 @@ const users: IUser[] = [
   },
 ];
 
-
 export const getUsersService = async (): Promise<IUser[]> => {
   return users;
 };
 
-export const getUserByIdService = async (id: number): Promise<IUser | undefined> => {
+export const getUserByIdService = async (
+  id: number
+): Promise<IUser | undefined> => {
   const user = users.find((user) => user.id === id);
   return user;
-}
+};
 
 export const registerService = (user: IUser): IUser | undefined => {
-    const newUser = {...user, id:users.length +1}
-    users.push(newUser)
-    return newUser
-}
+  const newUser = { ...user, id: users.length + 1 };
+  users.push(newUser);
+  return newUser;
+};
 
-export const loginService = (username: string, password: string): IUser | null => {
-  const loginUser = users.find((user) => user.credentialsId.username === username && user.credentialsId.password === password)
+export const loginService = (
+  username: string,
+  password: string
+): IUser | null => {
+  const loginUser = users.find(
+    (user) =>
+      user.credentialsId.username === username &&
+      user.credentialsId.password === password
+  );
   return loginUser || null;
-}
+};
 
-export const deleteUserService = (id:number): IUser => {
+export const deleteUserService = (id: number): IUser => {
   const userIndex = users.findIndex((user) => user.id === id);
-  const [deleteUser] = users.splice(userIndex, 1)
+  const [deleteUser] = users.splice(userIndex, 1);
   return deleteUser;
-}
-
+};

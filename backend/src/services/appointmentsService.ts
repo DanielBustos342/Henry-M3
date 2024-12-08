@@ -7,7 +7,7 @@ const appointments: IAppointment[] = [
     time: new Date("2024-12-10T10:30:00"),
     userId: {
       id: 1,
-      photo: new File([], "user1.jpg"),
+      photo: "user1.jpg",
       name: "Sofía García",
       email: "sofia.garcia@example.com",
       birthdate: new Date("1990-05-12"),
@@ -31,7 +31,7 @@ const appointments: IAppointment[] = [
     time: new Date("2024-12-15T14:00:00"),
     userId: {
       id: 2,
-      photo: new File([], "user2.jpg"),
+      photo: "user2.jpg",
       name: "Juan Pérez",
       email: "juan.perez@example.com",
       birthdate: new Date("1985-08-23"),
@@ -55,12 +55,14 @@ const appointments: IAppointment[] = [
     time: new Date("2024-12-20T16:00:00"),
     userId: {
       id: 3,
-      photo: new File([], "user3.jpg"),
+      photo: "user3.jpg",
       name: "Ana Torres",
       email: "ana.torres@example.com",
       birthdate: new Date("1992-11-04"),
       nDni: 34567890,
-      location: [{ domicilio: "Rua da Felicidade 85", address: "Lisboa, Portugal" }],
+      location: [
+        { domicilio: "Rua da Felicidade 85", address: "Lisboa, Portugal" },
+      ],
       credentialsId: {
         id: 3,
         username: "anatorres",
@@ -79,12 +81,14 @@ const appointments: IAppointment[] = [
     time: new Date("2024-12-25T09:00:00"),
     userId: {
       id: 4,
-      photo: new File([], "user4.jpg"),
+      photo: "user4.jpg",
       name: "Carlos López",
       email: "carlos.lopez@example.com",
       birthdate: new Date("1988-03-15"),
       nDni: 45678901,
-      location: [{ domicilio: "Boulevard Saint-Michel 10", address: "París, Francia" }],
+      location: [
+        { domicilio: "Boulevard Saint-Michel 10", address: "París, Francia" },
+      ],
       credentialsId: {
         id: 4,
         username: "carloslopez",
@@ -103,7 +107,7 @@ const appointments: IAppointment[] = [
     time: new Date("2024-12-30T11:30:00"),
     userId: {
       id: 5,
-      photo: new File([], "user5.jpg"),
+      photo: "user5.jpg",
       name: "Elena Martínez",
       email: "elena.martinez@example.com",
       birthdate: new Date("1995-07-19"),
@@ -123,6 +127,13 @@ const appointments: IAppointment[] = [
   },
 ];
 
-export const getAppointmentsService = async(): Promise<IAppointment[]> =>{
-    return appointments;
-}
+export const getAppointmentsService = async (): Promise<IAppointment[]> => {
+  return appointments;
+};
+
+export const getAppointmentByIdService = async (
+  id: number
+): Promise<IAppointment | undefined> => {
+  const appointment = appointments.find((appointment) => appointment.id === id);
+  return appointment;
+};
