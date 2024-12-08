@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   getAppointmentById,
-  schedule,
+  newSchedule,
   cancel,
   getAppointments,
 } from "../controllers/appointmentsController";
@@ -13,7 +13,7 @@ appointmentsRouter.get("/", getAppointments);
 // GET /appointments => Obtener el detalle de un turno específico
 appointmentsRouter.get("/:id", getAppointmentById);
 // POST /appointments/schedule => Agendar un nuevo turno
-appointmentsRouter.post("/", schedule);
+appointmentsRouter.post("/", newSchedule);
 //PUT /appointments/cancel => Cambiar el estatus de un turno a “cancelled”
 appointmentsRouter.put("/", cancel);
 
