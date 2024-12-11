@@ -1,3 +1,6 @@
+import { UserModel } from "../config/data-source";
+import UserDto from "../dto/UserDto";
+import { User } from "../entities/User";
 import IUser from "../interfaces/IUser";
 
 const users: IUser[] = [
@@ -97,7 +100,8 @@ const users: IUser[] = [
   },
 ];
 
-export const getUsersService = async (): Promise<IUser[]> => {
+export const getUsersService = async (): Promise<User[]> => {
+  const users = await UserModel.find();
   return users;
 };
 
@@ -108,9 +112,9 @@ export const getUserByIdService = async (
   return user;
 };
 
-export const registerService = (user: IUser): IUser | undefined => {
-  const newUser = { ...user, id: users.length + 1 };
-  users.push(newUser);
+export const registerService = async (user: UserDto) => {
+  const newUser = await UserModel.create(user);
+  const result = await UserModel.save(newUser);
   return newUser;
 };
 

@@ -20,7 +20,9 @@ export class User {
   //   birthdate: Date;
 
   @Column("integer")
-  nDni: number;
+  age: number;
   //   location: ILocation[]
   //   credentialsId: ICredential
+  @Column()
+  active: boolean;
 }

@@ -9,8 +9,10 @@ export const AppDataSource = new DataSource({
   password: "admin",
   database: "carnet_sanidad",
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [User],
   subscribers: [],
   migrations: [],
 });
+
+export const UserModel = AppDataSource.getRepository(User);

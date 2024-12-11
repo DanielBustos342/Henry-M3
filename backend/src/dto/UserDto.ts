@@ -1,7 +1,8 @@
-// interface UserDto {
-//   name: string;
-//   email: string;
-//   active: boolean;
-// }
+interface UserDto {
+  name: string;
+  email: string;
+  age: number;
+  active: boolean;
+}
 
-// export default UserDto;
+export default UserDto;
