@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Appointment } from "./Appointment";
 
 @Entity({
   name: "users",
@@ -7,22 +8,15 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  //   @Column()
-  //   photo: File | string;
-
   @Column({ length: 100 })
   name: string;
 
   @Column({ length: 60 })
   email: string;
 
-  //   @Column()
-  //   birthdate: Date;
-
   @Column("integer")
   age: number;
-  //   location: ILocation[]
-  //   credentialsId: ICredential
-  @Column()
-  active: boolean;
+
+  @OneToMany(()=> Appointment,(appointment) => appointment.user)
+  appoiments: Appointment[];
 }
