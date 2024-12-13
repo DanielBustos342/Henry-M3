@@ -17,23 +17,9 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 // controlador para ver el usuario por ID
-export const getUserById = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const id = parseInt(req.params.id, 10);
-
-  if (isNaN(id)) {
-    res.status(400).json({ message: "El ID proporcionado no es válido." });
-    return;
-  }
-  const user: IUser | undefined = await getUserByIdService(id);
-
-  // Verificar si el usuario existe
-  if (!user) {
-    res.status(404).json({ message: "Usuario no encontrado." });
-    return;
-  }
+export const getUserById = async (req: Request, res: Response) => {
+  const {id} = req.params
+  const user: User | null = await getUserByIdService(parseInt(id));
 
   // Devolver el usuario encontrado
   res.status(200).json(user);

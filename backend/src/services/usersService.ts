@@ -107,8 +107,8 @@ export const getUsersService = async (): Promise<User[]> => {
 
 export const getUserByIdService = async (
   id: number
-): Promise<IUser | undefined> => {
-  const user = users.find((user) => user.id === id);
+) => {
+  const user = await UserModel.findOneBy({ id });
   return user;
 };
 
