@@ -4,23 +4,19 @@ import { User } from "../entities/User";
 
 export const getUsersService = async (): Promise<User[]> => {
   const users = await UserModel.find({
-      relations:{
-        appoiments: true
-      }
-    });
+    relations: { appointments: true },
+  });
   return users;
 };
 
-export const getUserByIdService = async (
-  id: number
-) => {
+export const getUserByIdService = async (id: number) => {
   const user = await UserModel.findOneBy({ id });
   return user;
 };
 
 export const registerService = async (user: UserDto) => {
   const newUser = await UserModel.create(user);
-  const result = await UserModel.save(newUser);
+  await UserModel.save(newUser);
   return newUser;
 };
 

@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Appointment } from "./Appointment";
 
 @Entity({
@@ -17,6 +17,7 @@ export class User {
   @Column("integer")
   age: number;
 
-  @OneToMany(()=> Appointment,(appointment) => appointment.user)
-  appoiments: Appointment[];
+  @OneToMany(() => Appointment, (appointment) => appointment.user)
+  appointments: Appointment[];
+
 }

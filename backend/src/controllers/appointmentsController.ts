@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import {
   getAppointmentsService,
   // getAppointmentByIdService,
-  // newScheduleService,
+  newScheduleService,
 } from "../services/appointmentsService";
 import { Appointment } from "../entities/Appointment";
+import AppointmentDto from "../dto/AppointmentDto";
 
 // GET /turns => Obtener todos los turnos
 export const getAppointments = async (req: Request, res: Response) => {
@@ -20,21 +21,19 @@ export const getAppointments = async (req: Request, res: Response) => {
 //   res.status(200).json(appointment);
 // };
 // POST /turns/schedule => Crear un nuevo turno
-// export const newSchedule = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   const { date, time, userId, status }: IAppointment = req.body;
+export const newSchedule = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { date, time, userId }: AppointmentDto = req.body;
 
-//   const newSchedule = await newScheduleService({
-//     // id: 0,
-//     date: new Date(date),
-//     time: new Date(time),
-//     userId,
-//     status,
-//   });
-//   res.status(200).json(newSchedule);
-// };
+  const newSchedule = await newScheduleService({
+    date: new Date(date),
+    time,
+    userId,
+  });
+  res.status(200).json(newSchedule);
+};
 //PUT /turns/cancel => Cancelar un turno
 // export const cancel = async (req: Request, res: Response) => {
 //   res.send("vamos a cancelar un turno");

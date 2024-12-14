@@ -1,8 +1,11 @@
-import { AppointmentModel } from "../config/data-source";
+import { AppointmentModel, UserModel } from "../config/data-source";
+import AppointmentDto from "../dto/AppointmentDto";
 import { Appointment } from "../entities/Appointment";
 
 export const getAppointmentsService = async (): Promise<Appointment[]> => {
-  const appointments = await AppointmentModel.find()
+  const appointments = await AppointmentModel.find({
+    relations: { user: true },
+  });
   return appointments;
 };
 
@@ -13,21 +16,18 @@ export const getAppointmentsService = async (): Promise<Appointment[]> => {
 //   return appointment;
 // };
 
-// export const newScheduleService = (
-//   schedule: Omit<IAppointment, "id">
-// ): IAppointment => {
-//   const isDuplicate = appointments.some(
-//     (appointment) =>
-//       appointment.date.toISOString() === schedule.date.toISOString() &&
-//       appointment.time.toISOString() === schedule.time.toISOString() &&
-//       appointment.userId.id === schedule.userId.id
-//   );
+export const newScheduleService = async (
+  appointment: AppointmentDto
+): Promise<Appointment> => {
+  const newSchedule = await AppointmentModel.create(appointment);
+  await AppointmentModel.save(newSchedule);
 
-//   if (isDuplicate) throw new Error("El turno ya existe para esa fecha y hora");
-//   const newSchedule: IAppointment = {
-//     ...schedule,
-//     id: appointments.length + 1,
-//   };
-//   appointments.push(newSchedule);
-//   return newSchedule;
-// };
+  const user = await UserModel.findOneBy({ id: appointment.userId });
+
+  if (user) {
+    newSchedule.user = user;
+    AppointmentModel.save(newSchedule);
+  }
+
+  return newSchedule;
+};

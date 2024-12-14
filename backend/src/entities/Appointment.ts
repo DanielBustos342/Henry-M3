@@ -2,19 +2,18 @@ import { Column, PrimaryGeneratedColumn, Entity, ManyToOne } from "typeorm";
 import { User } from "./User";
 
 @Entity({
-    name: "appointments",
+  name: "appointments",
 })
+export class Appointment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-export class Appointment{
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  date: Date;
 
-    @Column()
-    date: Date;
+  @Column()
+  time: string;
 
-    @Column()
-    time: string
-
-    @ManyToOne(()=> User, (user)=> user.appoiments)
-    user: User
+  @ManyToOne(() => User, (user) => user.appointments)
+  user: User;
 }
