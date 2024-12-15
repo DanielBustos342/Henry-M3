@@ -1,4 +1,8 @@
-import { UserModel } from "../config/data-source";
+import {
+  AppDataSource,
+  AppointmentModel,
+  UserModel,
+} from "../config/data-source";
 import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
 

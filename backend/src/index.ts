@@ -17,7 +17,6 @@ const initializeApp = async () => {
   await AppDataSource.initialize();
   console.log("Base de datos conectada");
   await preloadUserData();
-  console.log("usuarios OK");
   await preloadAppointmentData();
   server.listen(PORT, () => {
     console.log(`Servidor encendido en el ${PORT}`);

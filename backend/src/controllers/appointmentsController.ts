@@ -26,13 +26,16 @@ export const newSchedule = async (
   res: Response
 ): Promise<void> => {
   const { date, time, userId }: AppointmentDto = req.body;
-
-  const newSchedule = await newScheduleService({
-    date: new Date(date),
-    time,
-    userId,
-  });
-  res.status(200).json(newSchedule);
+  try {
+    const newSchedule = await newScheduleService({
+      date: new Date(date),
+      time,
+      userId,
+    });
+    res.status(200).json(newSchedule);
+  } catch (error) {
+    res.status(400).json({ error: "Error al solicitar el turno" });
+  }
 };
 //PUT /turns/cancel => Cancelar un turno
 // export const cancel = async (req: Request, res: Response) => {
