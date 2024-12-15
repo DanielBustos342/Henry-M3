@@ -1,8 +1,10 @@
 import { AppDataSource } from "../config/data-source";
-import { preloadAppointment } from "./appointmentData";
+import { preloadAppointments } from "./appointmentData";
 import { preloadUsers } from "./userData";
+import { preloadCredentials } from "./credentialData";
 import UserRepository from "../repositories/UserRepository";
 import AppointmentRepository from "../repositories/AppointmentRepository";
+import CredentialRepository from "../repositories/CredentialRepository";
 
 export const preloadUserData = async () => {
   await AppDataSource.manager.transaction(
@@ -24,7 +26,7 @@ export const preloadAppointmentData = async () => {
   const queryRunner = AppDataSource.createQueryRunner();
   await queryRunner.connect();
 
-  const promises = preloadAppointment.map(async (appointment) => {
+  const promises = preloadAppointments.map(async (appointment) => {
     const newAppointment = await AppointmentRepository.create(appointment);
     await queryRunner.manager.save(newAppointment);
     const user = await UserRepository.findOneBy({ id: appointment.userId });
@@ -48,4 +50,21 @@ export const preloadAppointmentData = async () => {
     console.log("Ha finalizado la precarga");
     await queryRunner.release();
   }
+};
+
+export const preloadCredentialsData = async () => {
+  await AppDataSource.manager.transaction(
+    async (transactionalEntityManager) => {
+      const credentials = await CredentialRepository.find();
+
+      if (credentials.length)
+        return console.log("No se hizo la precarga de datos");
+
+      for await (const credential of preloadCredentials) {
+        const newCredential = await CredentialRepository.create(credential);
+        await transactionalEntityManager.save(newCredential);
+      }
+      console.log("Precarga de datos de las credenciales realizada con éxito");
+    }
+  );
 };

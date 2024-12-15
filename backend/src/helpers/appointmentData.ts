@@ -1,6 +1,6 @@
 import IPreloadAppointment from "../interfaces/IPreloadAppointment";
 
-export const preloadAppointment: IPreloadAppointment[] = [
+export const preloadAppointments: IPreloadAppointment[] = [
   {
     date: new Date("2024-12-23T09:30:00"),
     time: "09:30",

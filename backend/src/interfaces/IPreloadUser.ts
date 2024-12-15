@@ -1,7 +1,8 @@
 interface IPreloadUser {
   name: string;
   email: string;
-  age: number;
+  birthdate: Date;
+  nDni: number;
 }
 
 export default IPreloadUser;

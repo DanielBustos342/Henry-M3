@@ -1,4 +1,3 @@
-import ILocation from "../interfaces/ILocation";
 import ICredential from "./ICredential";
 
 interface IUser {
@@ -8,7 +7,6 @@ interface IUser {
   email: string;
   birthdate: Date;
   nDni: number;
-  location: ILocation[];
   credentialsId: ICredential;
 }
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import {
   getAppointmentsService,
-  // getAppointmentByIdService,
+  getAppointmentByIdService,
   newScheduleService,
 } from "../services/appointmentsService";
 import { Appointment } from "../entities/Appointment";
@@ -13,13 +13,12 @@ export const getAppointments = async (req: Request, res: Response) => {
   res.status(200).json(appointments);
 };
 // GET /turns/:id => Obtener un turno por ID
-// export const getAppointmentById = async (req: Request, res: Response) => {
-//   const id = parseInt(req.params.id, 10);
-//   const appointment: IAppointment | undefined = await getAppointmentByIdService(
-//     id
-//   );
-//   res.status(200).json(appointment);
-// };
+export const getAppointmentById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id, 10);
+  const appointment: Appointment | null = await getAppointmentByIdService(id);
+  res.status(200).json(appointment);
+};
+
 // POST /turns/schedule => Crear un nuevo turno
 export const newSchedule = async (
   req: Request,

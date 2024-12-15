@@ -3,9 +3,6 @@ interface ICredential {
   username: string;
   password: string;
   rol: string;
-  createdAt: Date;
-  updatedAt: Date;
-  isVeridied: boolean;
 }
 
 export default ICredential;

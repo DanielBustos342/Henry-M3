@@ -11,12 +11,15 @@ export const getAppointmentsService = async (): Promise<Appointment[]> => {
   return appointments;
 };
 
-// export const getAppointmentByIdService = async (
-//   id: number
-// ): Promise<IAppointment | undefined> => {
-//   const appointment = appointments.find((appointment) => appointment.id === id);
-//   return appointment;
-// };
+export const getAppointmentByIdService = async (
+  id: number
+): Promise<Appointment | null> => {
+  const appointment = await AppointmentRepository.findOne({
+    where: { id },
+    relations: { user: true },
+  });
+  return appointment;
+};
 
 export const newScheduleService = async (
   appointment: AppointmentDto

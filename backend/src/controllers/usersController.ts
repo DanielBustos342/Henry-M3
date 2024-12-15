@@ -7,6 +7,7 @@ import {
   // loginService,
 } from "../services/usersService";
 import UserDto from "../dto/UserDto";
+import CredentialDto from "../dto/CredentialDto";
 import { User } from "../entities/User";
 
 // controlador para ver los usuarios
@@ -17,7 +18,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
 // controlador para ver el usuario por ID
 export const getUserById = async (req: Request, res: Response) => {
-  const {id} = req.params
+  const { id } = req.params;
   const user: User | null = await getUserByIdService(parseInt(id));
 
   // Devolver el usuario encontrado
@@ -26,12 +27,21 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // controlador para crear un usuario
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const { name, email, age }: UserDto = req.body;
+  const {
+    name,
+    email,
+    birthdate,
+    nDni,
+    username,
+    password,
+    rol,
+  }: UserDto & CredentialDto = req.body;
 
   const newUser = await registerService({
     name,
     email,
-    age,
+    birthdate,
+    nDni,
   });
   res.status(200).json(newUser);
 };
