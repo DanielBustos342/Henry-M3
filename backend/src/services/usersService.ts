@@ -1,26 +1,22 @@
-import {
-  AppDataSource,
-  AppointmentModel,
-  UserModel,
-} from "../config/data-source";
 import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
+import UserRepository from "../repositories/UserRepository";
 
 export const getUsersService = async (): Promise<User[]> => {
-  const users = await UserModel.find({
+  const users = await UserRepository.find({
     relations: { appointments: true },
   });
   return users;
 };
 
 export const getUserByIdService = async (id: number) => {
-  const user = await UserModel.findOneBy({ id });
+  const user = await UserRepository.findOneBy({ id });
   return user;
 };
 
 export const registerService = async (user: UserDto) => {
-  const newUser = await UserModel.create(user);
-  await UserModel.save(newUser);
+  const newUser = await UserRepository.create(user);
+  await UserRepository.save(newUser);
   return newUser;
 };
 

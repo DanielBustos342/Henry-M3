@@ -1,13 +1,11 @@
-import {
-  AppDataSource,
-  AppointmentModel,
-  UserModel,
-} from "../config/data-source";
+import { AppDataSource } from "../config/data-source";
 import AppointmentDto from "../dto/AppointmentDto";
 import { Appointment } from "../entities/Appointment";
+import UserRepository from "../repositories/UserRepository";
+import AppointmentRepository from "../repositories/AppointmentRepository";
 
 export const getAppointmentsService = async (): Promise<Appointment[]> => {
-  const appointments = await AppointmentModel.find({
+  const appointments = await AppointmentRepository.find({
     relations: { user: true },
   });
   return appointments;
@@ -29,10 +27,10 @@ export const newScheduleService = async (
   try {
     queryRunner.startTransaction();
 
-    const newSchedule = await AppointmentModel.create(appointment);
+    const newSchedule = await AppointmentRepository.create(appointment);
     await queryRunner.manager.save(newSchedule);
 
-    const user = await UserModel.findOneBy({ id: appointment.userId });
+    const user = await UserRepository.findOneBy({ id: appointment.userId });
 
     if (!user) throw Error("Usuario inexistente. No ha podido crear el turno");
 
