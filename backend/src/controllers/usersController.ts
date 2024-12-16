@@ -4,7 +4,7 @@ import {
   getUserByIdService,
   registerService,
   // deleteUserService,
-  // loginService,
+  loginService,
 } from "../services/usersService";
 import UserDto from "../dto/UserDto";
 import CredentialDto from "../dto/CredentialDto";
@@ -32,10 +32,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     email,
     birthdate,
     nDni,
-    username,
-    password,
-    rol,
-  }: UserDto & CredentialDto = req.body;
+  }: UserDto = req.body;
 
   const newUser = await registerService({
     name,
@@ -47,21 +44,20 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 };
 
 // controlador para el login
-// export const login = async (req: Request, res: Response): Promise<void> => {
-//   const { username, password } = req.body;
-//   if (!username || !password) {
-//     res.status(400).json({ message: " faltan datos" });
-//     return;
-//   }
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const { username, password }: CredentialDto = req.body;
+  if (!username || !password) {
+    res.status(400).json({ message: " faltan datos" });
+    return;
+  }
+  const {login, user} = await loginService(username, password);
 
-//   const user = loginService(username, password);
+  if (!login) {
+    res.status(400).json({ message: "credenciales incorrectas" });
+  }
 
-//   if (!user) {
-//     res.status(400).json({ message: "credenciales incorrectas" });
-//   }
-
-//   res.status(200).json({ message: "inicio de sesion exitoso", user });
-// };
+  res.status(200).json({ message: "inicio de sesion exitoso", user });
+};
 
 // controlador para borrar un usuario
 // export const deleteUser = (req: Request, res: Response): void => {

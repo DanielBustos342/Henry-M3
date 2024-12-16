@@ -19,13 +19,13 @@ export class User {
   @Column({ length: 100 })
   name: string;
 
-  @Column({ length: 60 })
+  @Column({ length: 60, unique: true })
   email: string;
 
   @Column()
   birthdate: Date;
 
-  @Column("integer")
+  @Column("integer", {unique: true})
   nDni: number;
 
   @OneToOne(() => Credential, (credential) => credential.user)
