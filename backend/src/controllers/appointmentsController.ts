@@ -3,6 +3,8 @@ import {
   getAppointmentsService,
   getAppointmentByIdService,
   newScheduleService,
+  cancelAppointmentByIdService,
+  deleteAppointmentByIdService,
 } from "../services/appointmentsService";
 import { Appointment } from "../entities/Appointment";
 import AppointmentDto from "../dto/AppointmentDto";
@@ -37,6 +39,55 @@ export const newSchedule = async (
   }
 };
 //PUT /turns/cancel => Cancelar un turno
-// export const cancel = async (req: Request, res: Response) => {
-//   res.send("vamos a cancelar un turno");
-// };
+export const cancelAppointmentById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.status(400).json("ID de turno no proporcionado");
+      return;
+    }
+
+    const appointment = await cancelAppointmentByIdService(Number(id));
+
+    if (!appointment) {
+      res.status(404).json("Turno no encontrado");
+      return;
+    }
+    res
+      .status(200)
+      .json({ mensaje: "Turno cancelado exitosamente", appointment });
+  } catch (error) {
+    console.error("Error en controlador cancelAppointment:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
+export const deleteAppointmentById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.status(400).json({ message: "ID de turno no proporcionado" });
+      return;
+    }
+
+    const wasDeleted = await deleteAppointmentByIdService(Number(id));
+
+    if (!wasDeleted) {
+      res.status(404).json({ message: "Turno no encontrado" });
+      return;
+    }
+
+    res.status(200).json({ message: "Turno eliminado exitosamente" });
+  } catch (error) {
+    console.error("Error en controlador deleteAppointment:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};

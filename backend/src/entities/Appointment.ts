@@ -14,6 +14,9 @@ export class Appointment {
   @Column()
   time: string;
 
+  @Column({ default: false })
+  isCancelled: boolean;
+
   @ManyToOne(() => User, (user) => user.appointments)
   user: User;
 }

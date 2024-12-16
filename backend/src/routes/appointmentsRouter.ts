@@ -2,8 +2,9 @@ import { Router } from "express";
 import {
   getAppointmentById,
   newSchedule,
-  // cancel,
   getAppointments,
+  cancelAppointmentById,
+  deleteAppointmentById,
 } from "../controllers/appointmentsController";
 import { validateId } from "../middlewares/validateId";
 
@@ -16,6 +17,8 @@ appointmentsRouter.get("/:id", validateId, getAppointmentById);
 // POST /appointments/schedule => Agendar un nuevo turno
 appointmentsRouter.post("/", newSchedule);
 //PUT /appointments/cancel => Cambiar el estatus de un turno a “cancelled”
-// appointmentsRouter.put("/", cancel);
+appointmentsRouter.put("/cancel/:id", cancelAppointmentById);
+//PUT /appointments/delete => Elimina el turno
+appointmentsRouter.put("/delete/:id", deleteAppointmentById);
 
 export default appointmentsRouter;

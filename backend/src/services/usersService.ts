@@ -1,5 +1,7 @@
+import { login } from "../controllers/usersController";
 import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
+import CredentialRepository from "../repositories/CredentialRepository";
 import UserRepository from "../repositories/UserRepository";
 import bcrypt from "bcrypt";
 
@@ -27,32 +29,49 @@ export const registerService = async (user: UserDto) => {
 export const loginService = async (
   username: string,
   password: string
-): Promise<{ login: boolean; user: Omit<User, "credential" | "appointments"> | null }> => {
-  console.log("Buscando usuario con username:", username);
-  const loginUser = await UserRepository.findOne({
-    where: { credential: {username}},
-    relations: ["credentials", "appointments"],
-  })
+): Promise<{
+  login: boolean;
+  user?: {
+    id: number;
+    name: string;
+    email: string;
+    birthdate: Date;
+    nDni: number;
+  };
+}> => {
+  try {
+    const loginUser = await CredentialRepository.findOne({
+      where: { username },
+      relations: ["user"],
+    });
 
-  if(!loginUser || !loginUser.credential) return {login: false, user: null};
+    if (!loginUser) {
+      console.log("Usuario no encontrado");
+      return { login: false };
+    }
+    // Comparar la contraseña sin hash
+    const isPasswordValid = password === loginUser.password;
+    console.log("Contraseña válida:", isPasswordValid);
 
-  const isPasswordValid = await bcrypt.compare(password, loginUser.credential.password)
-  console.log("Contraseña válida:", isPasswordValid);
+    if (!isPasswordValid) {
+      return { login: false };
+    }
 
-  if(!isPasswordValid) return {login: false, user: null}
+    const { id, name, email, birthdate, nDni } = loginUser.user;
 
-  const {id, name, email, birthdate, nDni} = loginUser;
-  console.log("Inicio de sesión exitoso para el usuario:", { id, name, email });
-
-  return{
-    login: true,
-    user: {id, name, email, birthdate,nDni}
+    return {
+      login: true,
+      user: {
+        id,
+        name,
+        email,
+        birthdate,
+        nDni,
+      },
+    };
+  } catch (error) {
+    console.error("Error en loginService:", error);
+    throw new Error("Error interno del servidor");
   }
-
 };
 
-// export const deleteUserService = (id: number): IUser => {
-//   const userIndex = users.findIndex((user) => user.id === id);
-//   const [deleteUser] = users.splice(userIndex, 1);
-//   return deleteUser;
-// };

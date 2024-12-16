@@ -27,12 +27,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // controlador para crear un usuario
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const {
-    name,
-    email,
-    birthdate,
-    nDni,
-  }: UserDto = req.body;
+  const { name, email, birthdate, nDni }: UserDto = req.body;
 
   const newUser = await registerService({
     name,
@@ -45,18 +40,28 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
 // controlador para el login
 export const login = async (req: Request, res: Response): Promise<void> => {
-  const { username, password }: CredentialDto = req.body;
-  if (!username || !password) {
-    res.status(400).json({ message: " faltan datos" });
-    return;
-  }
-  const {login, user} = await loginService(username, password);
+  try {
+    const { username, password }: CredentialDto = req.body;
 
-  if (!login) {
-    res.status(400).json({ message: "credenciales incorrectas" });
-  }
+    if (!username || !password) {
+      res.status(400).json({ login: false, message: "Faltan datos" });
+      return;
+    }
+    const { login, user } = await loginService(username, password);
 
-  res.status(200).json({ message: "inicio de sesion exitoso", user });
+    if (!login) {
+      res
+        .status(401)
+        .json({ login: false, message: "Credenciales incorrectas" });
+    } else {
+      res.status(200).json({ login: true, user });
+    }
+  } catch (error) {
+    console.error("Error en controlador login:", error);
+    res
+      .status(500)
+      .json({ login: false, message: "Error interno del servidor" });
+  }
 };
 
 // controlador para borrar un usuario

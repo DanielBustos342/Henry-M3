@@ -50,3 +50,36 @@ export const newScheduleService = async (
     await queryRunner.release();
   }
 };
+
+export const cancelAppointmentByIdService = async (
+  id: number
+): Promise<Appointment | null> => {
+  try {
+    const appointmentIndex = await AppointmentRepository.findOneBy({ id });
+
+    if (!appointmentIndex) {
+      console.log(`No se encontro un turno con el ID ${id}`);
+      return null;
+    }
+
+    appointmentIndex.isCancelled = true;
+    await AppointmentRepository.save(appointmentIndex);
+
+    return appointmentIndex;
+  } catch (error) {
+    console.error("Error en cancelAppointmentById:", error);
+    throw new Error("Error interno del servidor");
+  }
+};
+
+export const deleteAppointmentByIdService = async (
+  id: number
+): Promise<boolean> => {
+  try {
+    const result = await AppointmentRepository.delete(id);
+    return typeof result.affected === "number" && result.affected > 0;
+  } catch (error) {
+    console.error("Error en deleteAppointmentById:", error);
+    throw new Error("Error interno del servidor");
+  }
+};
