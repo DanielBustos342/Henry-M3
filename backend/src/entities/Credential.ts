@@ -23,7 +23,6 @@ export class Credential {
   @Column()
   rol: string;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @OneToOne(() => User, (user) => user.credential)
   user: User;
 }

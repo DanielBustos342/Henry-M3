@@ -57,13 +57,33 @@ export const preloadCredentialsData = async () => {
     async (transactionalEntityManager) => {
       const credentials = await CredentialRepository.find();
 
-      if (credentials.length)
-        return console.log("No se hizo la precarga de datos");
+      if (credentials.length){
+        console.log("No se hizo la precarga de datos");
+        return 
+      }
 
-      for await (const credential of preloadCredentials) {
-        const newCredential = await CredentialRepository.create(credential);
+      for (const credentialData of preloadCredentials) {
+        // Buscar o crear el usuario relacionado
+        let user = await UserRepository.findOneBy({ id: credentialData.userId });
+        if (!user) {
+          console.log(`Usuario con ID ${credentialData.userId} no encontrado`);
+          continue; // Saltar si el usuario no existe
+        }
+
+        // Crear la credencial
+        const newCredential = CredentialRepository.create({
+          ...credentialData,
+          user, // Asignar el usuario completo
+        });
+
+        // Guardar dentro de la transacción
         await transactionalEntityManager.save(newCredential);
       }
+
+      // for await (const credential of preloadCredentials) {
+      //   const newCredential = await CredentialRepository.create(credential);
+      //   await transactionalEntityManager.save(newCredential);
+      // }
       console.log("Precarga de datos de las credenciales realizada con éxito");
     }
   );
