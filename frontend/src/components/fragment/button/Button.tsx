@@ -1,5 +1,5 @@
-function Button() {
-  return <div>button</div>;
-}
+import Button from "@mui/material/Button";
 
-export default Button;
+export default function ButtonUsage() {
+  return <Button variant="contained">Hello world</Button>;
+}
