@@ -1,10 +1,12 @@
 import "./reset.css";
-import Button from "./components/fragment/button/button";
+import ResponsiveAppBar from "./components/responsiveAppBar/ResponsiveAppBar";
+import ButtonSizes from "./components/buttonSizes/ButtonSizes";
 
 function App() {
   return (
     <>
-      <Button />
+      <ResponsiveAppBar />
+      <ButtonSizes />
     </>
   );
 }
