@@ -1,12 +1,7 @@
 import "./reset.css";
-import Button from "./components/fragment/button/button";
 
 function App() {
-  return (
-    <>
-      <Button />
-    </>
-  );
+  return <>soy un comentario</>;
 }
 
 export default App;
