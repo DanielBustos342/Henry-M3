@@ -1,13 +1,16 @@
 import { Container, FormControl } from "@mui/material";
 import TextRegister from "./TextRegister";
 import BtnRegister from "./BtnRegister";
+import Name from "./Name";
+import LastName from "./LastName";
+import Email from "./Email";
+import Birthdate from "./Birthdate";
+import Ndni from "./nDni";
+import Photo from "./photo";
 
 function RegisterComponent() {
   return (
-    <Container
-      maxWidth="sm"
-      sx={{ background: "#2E424D", padding: "30px", height: "100vh" }}
-    >
+    <Container maxWidth="sm" sx={{ background: "#2E424D", padding: "30px" }}>
       <TextRegister />
       <Container
         maxWidth="sm"
@@ -24,6 +27,12 @@ function RegisterComponent() {
             margin: "20px 0",
           }}
         >
+          <Photo />
+          <Name />
+          <LastName />
+          <Email />
+          <Birthdate />
+          <Ndni />
           <BtnRegister />
         </FormControl>
       </Container>

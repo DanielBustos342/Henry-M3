@@ -16,7 +16,7 @@ function TextRegister() {
         },
       }}
     >
-      Registrar
+      Registrarse
     </Typography>
   );
 }

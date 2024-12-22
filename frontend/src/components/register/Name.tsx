@@ -10,8 +10,3 @@ function Name() {
 }
 
 export default Name;
-
-//     name,
-//     email,
-//     birthdate,
-//     nDni,
