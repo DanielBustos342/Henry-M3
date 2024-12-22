@@ -1,17 +1,15 @@
 import { Container, FormControl } from "@mui/material";
-import TextRegister from "./TextRegister";
-import BtnRegister from "./BtnRegister";
-import Name from "./Name";
-import LastName from "./LastName";
-import Email from "./Email";
-import Birthdate from "./Birthdate";
-import Ndni from "./nDni";
-import Photo from "./photo";
+import Email from "../../../components/user/login/Email";
+import Password from "../../../components/user/login/Password";
+import TextSingIn from "../../../components/user/login/TextSingIn";
+import Btn from "../../../components/user/login/Btn";
+import TextContinue from "../../../components/user/login/TextContinue";
+import BtnGoogle from "../../../components/user/login/BtnGoogle";
 
-function RegisterComponent() {
+function Login() {
   return (
     <Container maxWidth="sm" sx={{ background: "#2E424D", padding: "30px" }}>
-      <TextRegister />
+      <TextSingIn />
       <Container
         maxWidth="sm"
         sx={{
@@ -27,17 +25,15 @@ function RegisterComponent() {
             margin: "20px 0",
           }}
         >
-          <Photo />
-          <Name />
-          <LastName />
           <Email />
-          <Birthdate />
-          <Ndni />
-          <BtnRegister />
+          <Password />
+          <Btn />
+          <TextContinue />
+          <BtnGoogle />
         </FormControl>
       </Container>
     </Container>
   );
 }
 
-export default RegisterComponent;
+export default Login;

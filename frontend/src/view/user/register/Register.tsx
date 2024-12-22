@@ -1,13 +1,13 @@
 import { Container, FormControl } from "@mui/material";
-import TextRegister from "../../components/register/TextRegister";
-import Photo from "../../components/register/Photo";
-import Name from "../../components/register/Name";
-import LastName from "../../components/register/LastName";
-import Email from "../../components/register/Email";
-import Birthdate from "../../components/register/Birthdate";
-import Ndni from "../../components/register/Ndni";
-import BtnRegister from "../../components/register/BtnRegister";
-import Password from "../../components/login/Password";
+import TextRegister from "../../../components/user/register/TextRegister";
+import Photo from "../../../components/user/register/Photo";
+import Name from "../../../components/user/register/Name";
+import LastName from "../../../components/user/register/LastName";
+import Email from "../../../components/user/register/Email";
+import Birthdate from "../../../components/user/register/Birthdate";
+import Ndni from "../../../components/user/register/Ndni";
+import BtnRegister from "../../../components/user/register/BtnRegister";
+import Password from "../../../components/user/login/Password";
 
 function Register() {
   return (
