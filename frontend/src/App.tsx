@@ -1,11 +1,13 @@
+import RegisterComponent from "./components/register/RegisterComponent";
 import "./reset.css";
-import Nav from "./components/nav/Nav";
+// import Nav from "./components/nav/Nav";
 // import Login from "./view/login/Login";
 
 function App() {
   return (
     <>
-      <Nav />
+      <RegisterComponent />
+      {/* <Nav /> */}
       {/* <Login /> */}
     </>
   );
