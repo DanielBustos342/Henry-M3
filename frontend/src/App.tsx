@@ -1,26 +1,20 @@
-// import AdminAppointment from "./components/admin/appointment/adminAppointment";
-// import AdminAppointments from "./components/admin/appointment/AdminAppointments";
-// import ListUsers from "./components/admin/ListUsers/ListUsers";
-// import UserListItem from "./components/admin/ListUsers/UserListItem";
-import ListAppointments from "./components/doctor/ListAppointments";
 import "./reset.css";
-// import Register from "./view/user/register/Register";
-// import AppointmentComponent from "./components/user/appointment/AppointmentComponent";
-// import Nav from "./components/nav/Nav";
-// import Login from "./view/login/Login";
+import { Route, Routes } from "react-router-dom";
+import Login from "./view/user/login/Login";
+import Register from "./view/user/register/Register";
+import Appointment from "./view/user/appointment/Appointment";
 
 function App() {
   return (
     <>
-      <ListAppointments />
-      {/* <ListUsers /> */}
-      {/* <UserListItem /> */}
-      {/* <AdminAppointments /> */}
-      {/* <AdminAppointment /> */}
-      {/* <AppointmentComponent /> */}
-      {/* <Register /> */}
-      {/* <Nav /> */}
-      {/* <Login /> */}
+      <Routes>
+        {/* user */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        {/* admin */}
+        <Route path="/appointment" element={<Appointment />} />
+        {/* doctor */}
+      </Routes>
     </>
   );
 }
