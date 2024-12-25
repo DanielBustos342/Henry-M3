@@ -5,8 +5,16 @@ import TextSingIn from "../../../components/user/login/TextSingIn";
 import Btn from "../../../components/user/login/Btn";
 import TextContinue from "../../../components/user/login/TextContinue";
 import BtnGoogle from "../../../components/user/login/BtnGoogle";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleSubmitLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate("/user/home");
+  };
+
   return (
     <Container maxWidth="sm" sx={{ background: "#2E424D", padding: "30px" }}>
       <TextSingIn />
@@ -18,19 +26,21 @@ function Login() {
           borderRadius: "10px",
         }}
       >
-        <FormControl
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0",
-          }}
-        >
-          <Email />
-          <Password />
-          <Btn />
-          <TextContinue />
-          <BtnGoogle />
-        </FormControl>
+        <form action="" onSubmit={handleSubmitLogin}>
+          <FormControl
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "20px 0",
+            }}
+          >
+            <Email />
+            <Password />
+            <Btn />
+            <TextContinue />
+            <BtnGoogle />
+          </FormControl>
+        </form>
       </Container>
     </Container>
   );

@@ -1,6 +1,6 @@
 import { Container, FormControl } from "@mui/material";
 import TextAppointment from "./TextAppointment";
-import Nav from "../nav/Nav";
+import Nav from "../nav/UserNav";
 import DateAppointment from "./DateAppointment";
 import TimeAppointment from "./TimeAppointment";
 import BtnAppointment from "./BtnAppointment";

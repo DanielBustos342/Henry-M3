@@ -1,8 +1,13 @@
 import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import { Link } from "react-router-dom";
 
-const pages = ["Solicitar", "Turnos", "Municipalidad de Tafi Viejo"];
+const pages = [
+  { label: "Solicitar", path: "user/appointment" },
+  { label: "Turnos", path: "user/detail/appointment" },
+  { label: "Municipalidad de Tafi Viejo", path: "user/landing" },
+];
 
 function MenuResponsive() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -18,7 +23,7 @@ function MenuResponsive() {
     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
       <IconButton
         size="large"
-        aria-label="account of current user"
+        aria-label="menu"
         aria-controls="menu-appbar"
         aria-haspopup="true"
         onClick={handleOpenNavMenu}
@@ -43,8 +48,13 @@ function MenuResponsive() {
         sx={{ display: { xs: "block", md: "none" } }}
       >
         {pages.map((page) => (
-          <MenuItem key={page} onClick={handleCloseNavMenu}>
-            <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+          <MenuItem
+            key={page.label}
+            onClick={handleCloseNavMenu}
+            component={Link} // Se usa el componente Link
+            to={page.path} // Define la ruta del enlace
+          >
+            <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
           </MenuItem>
         ))}
       </Menu>

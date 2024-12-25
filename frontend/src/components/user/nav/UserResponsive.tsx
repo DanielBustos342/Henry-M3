@@ -8,8 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import * as React from "react";
+import { Link } from "react-router-dom";
 
-const settings = ["Perfil", "Turnos", "Tramite", "Cerrar seción"];
+const settings = [
+  { label: "Perfil", path: "/user/profile" },
+  { label: "Turnos", path: "/user/detail/appointment" },
+  { label: "Trámite", path: "/user/detail/process" },
+  { label: "Cerrar sesión", path: "/logout" },
+];
 
 function UserResponsive() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -48,8 +54,15 @@ function UserResponsive() {
         onClose={handleCloseUserMenu}
       >
         {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+          <MenuItem
+            key={setting.label}
+            onClick={handleCloseUserMenu}
+            component={Link} // Usa el componente Link de react-router-dom
+            to={setting.path} // Asocia la ruta correspondiente
+          >
+            <Typography sx={{ textAlign: "center" }}>
+              {setting.label}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>
