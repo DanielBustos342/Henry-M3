@@ -12,6 +12,7 @@ import UserNav from "./components/user/nav/UserNav";
 import DetailAppointment from "./view/user/detailAppointment/DetailAppointment";
 import DetailProcess from "./view/user/detailProcess/DetailProcess";
 
+// lo primero es mi negrita y mi familia <3
 function App() {
   const location = useLocation();
   return (
