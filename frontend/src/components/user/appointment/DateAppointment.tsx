@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 
-const DateAppointment = () => {
-  const [selectedDate, setSelectedDate] = useState<string>("dd/mm/aaaa");
+interface DateAppointmentProps {
+  onChange: (value: string) => void; // Prop para notificar cambios al componente padre
+}
+
+const DateAppointment: React.FC<DateAppointmentProps> = ({ onChange }) => {
+  const [selectedDate, setSelectedDate] = useState<string>("dd-mm-aaaa");
 
   // Función para manejar el cambio de fecha
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,7 +14,7 @@ const DateAppointment = () => {
     const selectedDate = new Date(dateValue);
 
     // Verifica si el día seleccionado es un sábado (6) o domingo (0)
-    if (selectedDate.getDay() === 5 || selectedDate.getDay() === 6) {
+    if (selectedDate.getDay() === 6 || selectedDate.getDay() === 0) {
       alert("Solo puedes seleccionar días de lunes a viernes.");
       return;
     }
@@ -22,6 +26,7 @@ const DateAppointment = () => {
 
     if (selectedDate >= tomorrow) {
       setSelectedDate(dateValue); // Si la fecha es válida, actualiza el estado
+      onChange(dateValue); // Notifica al componente padre
     } else {
       alert("La fecha debe ser desde el día siguiente en adelante.");
     }
@@ -29,7 +34,7 @@ const DateAppointment = () => {
 
   // Fecha mínima para el selector de fechas (día siguiente)
   const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 2); // Establecer el día siguiente
+  minDate.setDate(minDate.getDate() + 1); // Establecer el día siguiente
 
   return (
     <FormControl sx={{ margin: "10px 0" }} variant="outlined" fullWidth>
@@ -47,4 +52,5 @@ const DateAppointment = () => {
     </FormControl>
   );
 };
+
 export default DateAppointment;

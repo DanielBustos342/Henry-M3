@@ -1,6 +1,5 @@
 import "./reset.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Location } from "react-router-dom";
 import Login from "./view/user/login/Login";
 import Register from "./view/user/register/Register";
 import Appointment from "./view/user/appointment/Appointment";

@@ -7,25 +7,34 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-function TimeAppointment() {
+interface TimeAppointmentProps {
+  onChange: (value: string) => void; // Prop para notificar cambios al componente padre
+}
+
+function TimeAppointment({ onChange }: TimeAppointmentProps) {
   const [selectedTime, setSelectedTime] = useState<string>("");
+
   // Generar horas y minutos válidos
   const generateTimeOptions = () => {
-    const options = [];
-    for (let hour = 8; hour <= 12; hour++) {
-      for (let minute of [0, 15, 30, 45]) {
-        const formattedHour = hour.toString().padStart(2, "0");
-        const formattedMinute = minute.toString().padStart(2, "0");
-        options.push(`${formattedHour}:${formattedMinute}`);
-      }
-    }
-    return options;
+    const minutes = [0, 15, 30, 45];
+    return Array.from({ length: 5 }, (_, i) => i + 8) // Genera las horas de 8 a 12
+      .flatMap((hour) =>
+        minutes.map(
+          (minute) =>
+            `${String(hour).padStart(2, "0")}:${String(minute).padStart(
+              2,
+              "0"
+            )}`
+        )
+      );
   };
 
   const timeOptions = generateTimeOptions();
 
   const handleTimeChange = (event: SelectChangeEvent<string>) => {
-    setSelectedTime(event.target.value as string);
+    const selectedValue = event.target.value as string;
+    setSelectedTime(selectedValue); // Actualiza el estado local
+    onChange(selectedValue); // Notifica al componente padre
   };
 
   return (
@@ -41,6 +50,7 @@ function TimeAppointment() {
         value={selectedTime}
         onChange={handleTimeChange}
         label="Selecciona una hora"
+        type="string"
       >
         {timeOptions.map((time) => (
           <MenuItem key={time} value={time}>
