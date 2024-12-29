@@ -12,6 +12,7 @@ import DetailAppointment from "./view/user/detailAppointment/DetailAppointment";
 import DetailProcess from "./view/user/detailProcess/DetailProcess";
 
 // lo primero es mi negrita y mi familia <3
+// trabajo muy duro sacando efectivo para pagar la casa
 function App() {
   const location = useLocation();
   return (
