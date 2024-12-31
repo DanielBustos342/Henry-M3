@@ -14,6 +14,7 @@ import DetailProcess from "./view/user/detailProcess/DetailProcess";
 // lo primero es mi negrita y mi familia <3
 // trabajo muy duro sacando efectivo para pagar la casa
 // otro dia sin poder codear, necesito efectivo
+// descanso por mucho DIDI
 function App() {
   const location = useLocation();
   return (
