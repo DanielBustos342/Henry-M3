@@ -16,16 +16,25 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  photo: string;
+
   @Column({ length: 100 })
   name: string;
+
+  @Column({ length: 50 })
+  lastname: string;
 
   @Column({ length: 60, unique: true })
   email: string;
 
+  @Column({ length: 20 })
+  password: string;
+
   @Column()
   birthdate: Date;
 
-  @Column("integer", {unique: true})
+  @Column("integer", { unique: true })
   nDni: number;
 
   @OneToOne(() => Credential, (credential) => credential.user)

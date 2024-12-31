@@ -27,11 +27,14 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // controlador para crear un usuario
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const { name, email, birthdate, nDni }: UserDto = req.body;
+  const { photo, name, lastname, email, password, birthdate, nDni }: UserDto = req.body;
 
   const newUser = await registerService({
+    photo,
     name,
+    lastname,
     email,
+    password,
     birthdate,
     nDni,
   });

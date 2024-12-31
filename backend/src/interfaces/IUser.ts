@@ -2,7 +2,7 @@ import ICredential from "./ICredential";
 
 interface IUser {
   id: number;
-  photo: File | string;
+  photo: string;
   name: string;
   email: string;
   birthdate: Date;
