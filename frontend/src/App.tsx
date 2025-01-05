@@ -16,6 +16,7 @@ import DetailProcess from "./view/user/detailProcess/DetailProcess";
 // otro dia sin poder codear, necesito efectivo
 // descanso por mucho DIDI
 // tomando un feriado primero de enero
+// toco semana floja
 function App() {
   const location = useLocation();
   return (
