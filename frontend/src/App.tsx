@@ -18,6 +18,7 @@ import DetailProcess from "./view/user/detailProcess/DetailProcess";
 // tomando un feriado primero de enero
 // toco semana floja
 // no hice nada
+// modo flojera mañana empiezo devuelta
 function App() {
   const location = useLocation();
   return (
