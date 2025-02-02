@@ -11,14 +11,6 @@ import UserNav from "./components/user/nav/UserNav";
 import DetailAppointment from "./view/user/detailAppointment/DetailAppointment";
 import DetailProcess from "./view/user/detailProcess/DetailProcess";
 
-// lo primero es mi negrita y mi familia <3
-// trabajo muy duro sacando efectivo para pagar la casa
-// otro dia sin poder codear, necesito efectivo
-// descanso por mucho DIDI
-// tomando un feriado primero de enero
-// toco semana floja
-// no hice nada
-// modo flojera mañana empiezo devuelta
 function App() {
   const location = useLocation();
   return (
